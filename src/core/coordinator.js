@@ -168,7 +168,7 @@ class TaskMasterCoordinator {
         // Busca tarefa no TaskMaster
         const taskResult = await this.syncManager.executeTaskMaster('get-task', { taskId });
         
-        if (taskResult.success) {
+        if (taskResult.success && taskResult.task) { // Adicionada verificação para taskResult.task
             // Análise profunda com Sequential Thinking
             const deepAnalysis = await this.syncManager.executeSequentialThinking({
                 thought: `Expandindo tarefa: ${taskResult.task.title}. Preciso quebrar esta tarefa em subtarefas específicas, identificar dependências técnicas, considerar diferentes abordagens e prever possíveis obstáculos.`,
@@ -178,9 +178,10 @@ class TaskMasterCoordinator {
             });
 
             // Expande no TaskMaster baseado na análise
+            // Assumindo que deepAnalysis.analysis existe se deepAnalysis for bem-sucedido
             const expansionResult = await this.syncManager.executeTaskMaster('expand-task', {
                 taskId,
-                analysis: deepAnalysis.analysis
+                analysis: deepAnalysis.success ? deepAnalysis.analysis : null 
             });
 
             return {
@@ -190,8 +191,10 @@ class TaskMasterCoordinator {
                 expansion: expansionResult
             };
         }
-
-        return { success: false, error: 'Tarefa não encontrada' };
+        
+        const errorMessage = taskResult.task ? 'Falha na análise ou expansão da tarefa.' : `Tarefa ${taskId} não encontrada ou dados inválidos retornados.`;
+        this.logger.warn(`Falha em expandWithThinking para taskId ${taskId}: ${errorMessage}`);
+        return { success: false, error: errorMessage, hasOriginalTask: !!taskResult.task };
     }
 
     /**
