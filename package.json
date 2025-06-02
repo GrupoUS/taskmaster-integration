@@ -1,0 +1,49 @@
+{
+  "name": "taskmaster-sequential-thinking-integration",
+  "version": "1.0.0",
+  "description": "Integração inteligente entre TaskMaster e Sequential Thinking para gerenciamento híbrido de tarefas e análise",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --inspect index.js",
+    "lint": "echo \"Linting not configured\"",
+    "docs": "echo \"Documentation available in docs/ directory\""
+  },
+  "keywords": [
+    "taskmaster",
+    "sequential-thinking",
+    "mcp",
+    "task-management",
+    "ai-integration",
+    "hybrid-system",
+    "coordination",
+    "automation"
+  ],
+  "author": "TaskMaster Integration Team",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eyaltoledano/claude-task-master"
+  },
+  "bugs": {
+    "url": "https://github.com/eyaltoledano/claude-task-master/issues"
+  },
+  "homepage": "https://github.com/eyaltoledano/claude-task-master#readme",
+  "files": [
+    "src/",
+    "config/",
+    "docs/",
+    "index.js",
+    "README.md"
+  ],
+  "directories": {
+    "doc": "docs",
+    "lib": "src"
+  }
+}

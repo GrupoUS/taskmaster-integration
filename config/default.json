@@ -1,0 +1,197 @@
+{
+  "system": {
+    "name": "TaskMaster + Sequential Thinking Integration",
+    "version": "1.0.0",
+    "environment": "development"
+  },
+  "logging": {
+    "level": "info",
+    "format": "structured",
+    "components": {
+      "coordinator": "info",
+      "syncManager": "info",
+      "rulesEngine": "debug",
+      "contextManager": "info",
+      "unifiedCommands": "info"
+    }
+  },
+  "coordination": {
+    "complexityThresholds": {
+      "low": 3,
+      "medium": 6,
+      "high": 8
+    },
+    "confidenceThreshold": 0.7,
+    "defaultTimeout": 30000,
+    "maxRetries": 3
+  },
+  "taskmaster": {
+    "enabled": true,
+    "operations": [
+      "get-tasks",
+      "add-task",
+      "update-task",
+      "remove-task",
+      "add-subtask",
+      "update-subtask",
+      "remove-subtask",
+      "set-task-status",
+      "move-task",
+      "add-dependency",
+      "remove-dependency",
+      "initialize-project",
+      "parse-prd",
+      "next-task"
+    ],
+    "keywords": [
+      "criar tarefa",
+      "listar tarefas",
+      "atualizar status",
+      "dependência",
+      "projeto",
+      "subtarefa",
+      "organizar",
+      "estruturar",
+      "planejar"
+    ],
+    "contexts": [
+      "task-management",
+      "project-organization",
+      "dependency-management"
+    ]
+  },
+  "sequentialThinking": {
+    "enabled": true,
+    "operations": [
+      "analyze",
+      "complexity-report",
+      "decision-making",
+      "validate-dependencies",
+      "problem-solving"
+    ],
+    "keywords": [
+      "analisar",
+      "complexidade",
+      "problema",
+      "solução",
+      "decisão",
+      "avaliar",
+      "validar",
+      "estratégia",
+      "risco",
+      "abordagem"
+    ],
+    "contexts": [
+      "analysis",
+      "problem-solving",
+      "decision-making",
+      "validation"
+    ],
+    "defaultParams": {
+      "nextThoughtNeeded": true,
+      "thoughtNumber": 1,
+      "totalThoughts": 5
+    }
+  },
+  "hybridOperations": {
+    "analyze-and-plan": {
+      "enabled": true,
+      "workflow": [
+        "Sequential Thinking: Análise do problema",
+        "TaskMaster: Estruturação em tarefas",
+        "Sequential Thinking: Validação do plano",
+        "TaskMaster: Criação de dependências"
+      ],
+      "keywords": [
+        "analisar e planejar",
+        "análise completa",
+        "planejamento estratégico"
+      ]
+    },
+    "smart-next-task": {
+      "enabled": true,
+      "workflow": [
+        "TaskMaster: Busca próxima tarefa",
+        "Sequential Thinking: Análise de complexidade",
+        "Hybrid: Geração de recomendações"
+      ],
+      "keywords": [
+        "próxima tarefa inteligente",
+        "sugestão de tarefa",
+        "tarefa recomendada"
+      ]
+    },
+    "expand-with-thinking": {
+      "enabled": true,
+      "workflow": [
+        "TaskMaster: Busca tarefa original",
+        "Sequential Thinking: Análise profunda",
+        "TaskMaster: Criação de subtarefas",
+        "Sequential Thinking: Validação da expansão"
+      ],
+      "keywords": [
+        "expandir com análise",
+        "quebrar tarefa",
+        "análise profunda"
+      ]
+    },
+    "validate-solution": {
+      "enabled": true,
+      "workflow": [
+        "Sequential Thinking: Validação da solução",
+        "TaskMaster: Atualização de status",
+        "Sequential Thinking: Geração de feedback"
+      ],
+      "keywords": [
+        "validar solução",
+        "verificar implementação",
+        "revisar código"
+      ]
+    }
+  },
+  "contextManager": {
+    "maxHistorySize": 100,
+    "cleanupInterval": 86400000,
+    "persistenceEnabled": false,
+    "maxContextSize": 1048576
+  },
+  "syncManager": {
+    "queueSize": 1000,
+    "processingInterval": 1000,
+    "batchSize": 10,
+    "retryDelay": 5000
+  },
+  "rulesEngine": {
+    "strictMode": false,
+    "customRulesEnabled": true,
+    "fallbackSystem": "taskmaster",
+    "decisionCaching": true,
+    "cacheSize": 500
+  },
+  "performance": {
+    "enableMetrics": true,
+    "metricsInterval": 60000,
+    "slowOperationThreshold": 5000,
+    "memoryWarningThreshold": 104857600
+  },
+  "security": {
+    "validateInputs": true,
+    "sanitizeOutputs": true,
+    "maxInputSize": 1048576,
+    "allowedOperations": "*"
+  },
+  "development": {
+    "mockMcpClients": true,
+    "simulateLatency": false,
+    "debugMode": false,
+    "verboseLogging": false
+  },
+  "production": {
+    "mockMcpClients": false,
+    "simulateLatency": false,
+    "debugMode": false,
+    "verboseLogging": false,
+    "enableCompression": true,
+    "enableCaching": true
+  }
+}
