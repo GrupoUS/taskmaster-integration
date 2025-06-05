@@ -16,90 +16,27 @@ Para funcionalidade completa, você precisa ter acesso aos seguintes servidores 
 
 ## 🚀 Instalação
 
-### 1. Clone ou Baixe o Projeto
+### 1. Clone o Repositório
 ```bash
-# Se usando Git
-git clone https://github.com/eyaltoledano/claude-task-master
+git clone https://github.com/eyaltoledano/claude-task-master.git
 cd claude-task-master/taskmaster-integration
-
-# Ou baixe e extraia o arquivo ZIP
 ```
 
-### 2. Verificar Estrutura de Arquivos
-Certifique-se de que a estrutura está correta:
-```
-taskmaster-integration/
-├── src/
-│   ├── core/
-│   │   ├── coordinator.js
-│   │   ├── rules-engine.js
-│   │   └── sync-manager.js
-│   ├── interfaces/
-│   │   └── unified-commands.js
-│   └── utils/
-│       ├── context-manager.js
-│       └── logger.js
-├── config/
-│   └── default.json
-├── docs/
-│   ├── coordination-rules.md
-│   └── examples.md
-├── index.js
-├── package.json
-├── README.md
-└── INSTALL.md
-```
-
-### 3. Instalar Dependências (se houver)
+### 2. Execute o Script de Migração
+Este script automatiza a instalação de dependências, a aplicação de melhorias e a atualização das configurações.
 ```bash
-npm install
+bash migrate-to-enhanced-integration.sh
 ```
 
-### 4. Verificar Instalação
-```bash
-node index.js
-```
-
-Se tudo estiver correto, você verá:
-```
-=== TaskMaster + Sequential Thinking Integration ===
-
-✅ Integração inicializada com sucesso!
-
-📋 Comandos disponíveis:
-...
-```
+### 3. Configure as Chaves de API
+Certifique-se de que suas chaves de API para os modelos de LLM (ex: Anthropic, OpenAI) estejam configuradas nas variáveis de ambiente ou no arquivo `.vscode/mcp.json` (se estiver usando o Cursor).
 
 ## ⚙️ Configuração
 
-### Configuração Básica
-O arquivo `config/default.json` contém todas as configurações padrão. Para personalizar:
+### Configuração Principal
+As configurações agora são gerenciadas principalmente através do arquivo `config/default.json`, que é atualizado automaticamente pelo script de migração. Para personalizações adicionais, edite este arquivo diretamente.
 
-1. **Copie o arquivo de configuração**:
-```bash
-cp config/default.json config/custom.json
-```
-
-2. **Edite as configurações**:
-```json
-{
-  "system": {
-    "environment": "production"
-  },
-  "logging": {
-    "level": "warn"
-  },
-  "coordination": {
-    "complexityThresholds": {
-      "low": 2,
-      "medium": 5,
-      "high": 7
-    }
-  }
-}
-```
-
-### Configurações Importantes
+### Configurações Importantes (Exemplos)
 
 #### Logging
 ```json
@@ -128,235 +65,69 @@ cp config/default.json config/custom.json
 }
 ```
 
-#### Performance
+#### Otimização e Cache
 ```json
 {
-  "performance": {
-    "enableMetrics": true,
-    "slowOperationThreshold": 5000,  // 5 segundos
-    "memoryWarningThreshold": 104857600  // 100MB
-  }
-}
-```
-
-## 🔧 Configuração de Ambiente
-
-### Desenvolvimento
-```json
-{
-  "system": {
-    "environment": "development"
-  },
-  "development": {
-    "mockMcpClients": true,
-    "debugMode": true,
-    "verboseLogging": true
-  }
-}
-```
-
-### Produção
-```json
-{
-  "system": {
-    "environment": "production"
-  },
-  "production": {
-    "mockMcpClients": false,
-    "enableCompression": true,
-    "enableCaching": true
-  },
-  "logging": {
-    "level": "warn"
+  "optimization": {
+    "batchRequests": true,
+    "batchSize": 5,
+    "batchDelay": 1000,
+    "useCache": true,
+    "contextWindowThreshold": 85
   }
 }
 ```
 
 ## 🧪 Teste da Instalação
 
-### Teste Básico
-```javascript
-const { quickStart } = require('./index');
-
-async function testeBasico() {
-    try {
-        const commands = await quickStart();
-        console.log('✅ Integração funcionando!');
-        
-        const status = await commands.getSystemStatus();
-        console.log('Status:', status.initialized);
-        
-    } catch (error) {
-        console.error('❌ Erro:', error.message);
-    }
-}
-
-testeBasico();
+Após a migração, os testes automatizados devem ser executados para verificar a integridade da instalação:
+```bash
+npm test
+```
+Você também pode executar o exemplo de tarefa complexa:
+```bash
+node examples/complex-task-example.js
 ```
 
-### Teste de Comandos
-```javascript
-const { createIntegration } = require('./index');
+## 📊 Monitoramento e Relatórios
 
-async function testeComandos() {
-    const integration = await createIntegration();
-    const commands = integration.getCommands();
-    
-    // Teste análise e planejamento
-    const resultado = await commands.analyzeAndPlan(
-        "Teste de integração",
-        "Verificar se todos os componentes funcionam"
-    );
-    
-    console.log('Resultado:', resultado.success);
-}
-
-testeComandos();
+Para gerar um relatório detalhado de métricas de performance e custos:
+```bash
+npm run metrics:report
 ```
-
-## 🔌 Integração com MCP
-
-### Configuração de Clientes MCP
-Se você tiver servidores MCP reais, configure-os no arquivo de configuração:
-
-```json
-{
-  "mcp": {
-    "taskmaster": {
-      "enabled": true,
-      "endpoint": "http://localhost:3001",
-      "timeout": 30000
-    },
-    "sequentialThinking": {
-      "enabled": true,
-      "endpoint": "http://localhost:3002",
-      "timeout": 30000
-    }
-  }
-}
-```
-
-### Modo Mock (Desenvolvimento)
-Para desenvolvimento sem servidores MCP reais:
-
-```json
-{
-  "development": {
-    "mockMcpClients": true
-  }
-}
-```
-
-## 📊 Monitoramento
-
-### Logs
-Os logs são salvos no console por padrão. Para salvar em arquivo:
-
-```javascript
-const { Logger } = require('./src/utils/logger');
-
-// Configurar logger personalizado
-const logger = new Logger('CustomApp', {
-    level: 'info',
-    outputFile: './logs/integration.log'
-});
-```
-
-### Métricas
-Para habilitar métricas de performance:
-
-```json
-{
-  "performance": {
-    "enableMetrics": true,
-    "metricsInterval": 60000
-  }
-}
-```
+Este comando fornecerá insights sobre chamadas de API, uso de tokens, eficiência do cache e recomendações para otimização contínua.
 
 ## 🚨 Troubleshooting
 
 ### Problemas Comuns
 
-#### 1. "Integração não inicializada"
-**Causa**: Tentativa de usar comandos antes da inicialização
+#### 1. Erros de Dependência
+**Causa**: `npm install` falhou ou dependências não foram instaladas corretamente.
+**Solução**: Execute `npm install` novamente no diretório `taskmaster-integration/`.
+
+#### 2. Erros de API/Autenticação
+**Causa**: Chaves de API ausentes ou inválidas.
+**Solução**: Verifique se suas chaves de API estão corretamente configuradas nas variáveis de ambiente ou no `.vscode/mcp.json`.
+
+#### 3. Comportamento Inesperado
+**Causa**: Configurações incorretas ou lógica de negócio não atendida.
 **Solução**:
-```javascript
-const integration = new TaskMasterIntegration();
-await integration.initialize(); // ← Importante!
-const commands = integration.getCommands();
-```
-
-#### 2. "Erro de timeout"
-**Causa**: Operações demoradas
-**Solução**: Aumentar timeout na configuração:
-```json
-{
-  "coordination": {
-    "defaultTimeout": 60000
-  }
-}
-```
-
-#### 3. "Memória insuficiente"
-**Causa**: Contexto muito grande
-**Solução**: Limpar contexto regularmente:
-```javascript
-const commands = await quickStart();
-// Usar comandos...
-await commands.contextManager.cleanup();
-```
-
-### Debug Mode
-Para debugging detalhado:
-
-```json
-{
-  "development": {
-    "debugMode": true,
-    "verboseLogging": true
-  },
-  "logging": {
-    "level": "debug"
-  }
-}
-```
-
-### Verificação de Saúde
-```javascript
-async function verificarSaude() {
-    const integration = await createIntegration();
-    const status = await integration.getStatus();
-    
-    console.log('Sistema inicializado:', status.initialized);
-    console.log('Coordenador ativo:', status.coordinator?.active);
-    console.log('Sync Manager ativo:', status.syncManager?.active);
-    console.log('Contexto:', status.context?.contextSize);
-}
-```
+- Verifique os logs (`logging.level` em `config/default.json` para `debug`).
+- Revise a seção de `Configuração` acima.
+- Execute os testes (`npm test`) para isolar o problema.
 
 ## 📚 Próximos Passos
 
-1. **Leia a documentação**: Consulte `docs/` para detalhes técnicos
-2. **Veja os exemplos**: Execute exemplos em `docs/examples.md`
-3. **Configure para seu uso**: Ajuste `config/default.json`
-4. **Integre com seu projeto**: Use a API de comandos unificados
-
-## 🆘 Suporte
-
-- **Documentação**: Consulte arquivos em `docs/`
-- **Exemplos**: Veja `docs/examples.md`
-- **Issues**: Reporte problemas no GitHub
-- **Configuração**: Consulte `config/default.json` para todas as opções
+1.  **Explore os exemplos**: Veja `examples/complex-task-example.js` para entender o uso.
+2.  **Personalize as configurações**: Ajuste `config/default.json` conforme suas necessidades.
+3.  **Integre com seu projeto**: Comece a usar os comandos híbridos para gerenciar suas tarefas.
 
 ## ✅ Checklist de Instalação
 
-- [ ] Node.js 14+ instalado
-- [ ] Arquivos extraídos corretamente
-- [ ] `node index.js` executa sem erros
-- [ ] Configuração personalizada (se necessário)
-- [ ] Testes básicos funcionando
-- [ ] Logs configurados (se necessário)
-- [ ] Integração MCP configurada (se aplicável)
+- [ ] Repositório clonado e `cd` para `taskmaster-integration/`
+- [ ] `bash migrate-to-enhanced-integration.sh` executado com sucesso
+- [ ] Chaves de API configuradas
+- [ ] `npm test` passa sem erros
+- [ ] `node examples/complex-task-example.js` executa e mostra resultados esperados
 
 Parabéns! Sua integração TaskMaster + Sequential Thinking está pronta para uso! 🎉

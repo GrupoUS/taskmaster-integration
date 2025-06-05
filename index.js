@@ -1,7 +1,9 @@
 /**
  * TaskMaster + Sequential Thinking Integration
  * 
- * Ponto de entrada principal para a integração
+ * Ponto de entrada principal para a integração.
+ * Orquestra a comunicação entre TaskMaster, Sequential Thinking,
+ * e os novos módulos de otimização, prevenção de erros e métricas.
  */
 
 const { UnifiedCommands } = require('./src/interfaces/unified-commands');
@@ -9,6 +11,10 @@ const { TaskMasterCoordinator } = require('./src/core/coordinator');
 const { SyncManager } = require('./src/core/sync-manager');
 const { RulesEngine } = require('./src/core/rules-engine');
 const { ContextManager } = require('./src/utils/context-manager');
+const { SequentialThinkingAdapter } = require('./src/adapters/sequential-thinking-adapter');
+const { ErrorPrevention } = require('./src/validation/error-prevention');
+const { APIOptimizer } = require('./src/optimization/api-optimizer');
+const { MetricsCollector } = require('./src/metrics/metrics');
 const { Logger } = require('./src/utils/logger');
 
 // Configuração
@@ -36,6 +42,10 @@ class TaskMasterIntegration {
         this.logger.info('Inicializando TaskMaster + Sequential Thinking Integration...');
 
         try {
+            // Inicializa novos módulos
+            this.metricsCollector = new MetricsCollector();
+            this.apiOptimizer = new APIOptimizer();
+            this.errorPrevention = new ErrorPrevention();
             // Inicializa comandos unificados
             this.unifiedCommands = new UnifiedCommands();
             await this.unifiedCommands.initialize();

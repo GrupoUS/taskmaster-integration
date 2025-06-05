@@ -1,0 +1,20 @@
+{
+  "overview": {
+    "totalTasks": 1,
+    "sequentialThinkingUsage": "0%",
+    "avgComplexity": 7,
+    "successRate": "100%"
+  },
+  "performance": {
+    "avgResponseTime": "0ms",
+    "cacheHitRate": "undefined%",
+    "apiCallsReduction": "0%"
+  },
+  "costs": {
+    "estimatedSaved": "$0",
+    "tokensUsed": 0,
+    "tokensPerTask": 0,
+    "costPerTask": "$0"
+  },
+  "recommendations": []
+}
